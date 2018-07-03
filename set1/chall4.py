@@ -1,21 +1,27 @@
 #!/usr/bin/env python3
 import codecs,sys
-from third import singleXor, score
+from chall3 import singleCharXorBruteforce
+
+def detectBest(inputData): #her satir icin once ayri ayri skor hesaplayip en yuksek skorlu olanlari bulur,
+    res = b''              #sonra da satirlarin skorlarindan en yuksek olani, anahtarini, skorunu. satirini dondurur.
+    resKey = 0
+    scoreHold = 0
+    lineT = 0
+    for string in inputData:
+        lineT +=1
+        plain, key, score = singleCharXorBruteforce(string)
+        if score > scoreHold:
+            scoreHold = score
+            res = plain
+            resKey = key
+            line = lineT
+    return res, resKey, scoreHold, line
 
 def main():
-    scoreHold = 0
-    lineNumberHold = 0
-    for line in open("fourth.txt", "r"):
-        lineNumberHold += 1
-        line = line.rstrip()
-        for i in range(1, 256):
-            c = singleXor(codecs.decode(line,"hex").decode("latin-1"), chr(i))
-            if score(c) > scoreHold:
-                scoreHold = score(c)
-                key = i
-                best = c
-                lineNumber = lineNumberHold
-    print("Line: ", lineNumber,"\nPlain: ",best.lstrip().rstrip(), "\nKey: ", chr(i))
+    candidates = [bytes.fromhex(line.strip()) for line in open("chall4.txt")]
+    plain, key, score, line = detectBest(candidates)
+    print("\nLine ",line,"\nPlain: ",plain.decode(),"\bKey: ",key,"\nScore: ",score)
 
 if __name__ == "__main__":
     main()
+
