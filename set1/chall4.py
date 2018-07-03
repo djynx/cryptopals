@@ -20,7 +20,7 @@ def detectBest(inputData): #her satir icin once ayri ayri skor hesaplayip en yuk
 def main():
     candidates = [bytes.fromhex(line.strip()) for line in open("chall4.txt")]
     plain, key, score, line = detectBest(candidates)
-    print("\nLine ",line,"\nPlain: ",plain.decode(),"\bKey: ",key,"\nScore: ",score)
+    print("\nSatir ",line,"\nPlain: ",plain.decode(),"\bAnahtar: ",key,"\nSkor: ",score)
 
 if __name__ == "__main__":
     main()
