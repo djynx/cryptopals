@@ -5,10 +5,9 @@ from chall2 import xor
 from chall7 import AES_ECB_Decrypt,AES_ECB_Encrypt
 from chall9 import pkcsPadding,pkcsUnpadding
 
-def encryptWithCBC(plain, bs, key, iv=None):
+def AES_CBC_Encrypt(plain, bs, key, iv=None):
     cipher = b''
     plain = pkcsPadding(plain, bs)
-    print(plain)
     if iv == None:
         iv = os.urandom(bs)
     for i in range(int(len(plain)/bs)):
@@ -21,7 +20,7 @@ def encryptWithCBC(plain, bs, key, iv=None):
         cipher += block
     return cipher, iv
 
-def decryptWithCBC(cipher,bs,key,iv):
+def AES_CBC_Decrypt(cipher,bs,key,iv):
     plain = b''
     for i in range(int(len(cipher)/bs)):
         block = cipher[(i*bs):(i+1)*bs]
@@ -36,7 +35,7 @@ def main():
     given = b64decode(open('chall10.txt', 'r').read())
     key = b'YELLOW SUBMARINE'
     iv=bytes([0]*len(key))
-    plain, iv = decryptWithCBC(given, len(key), key, iv)
+    plain, iv = AES_CBC_Decrypt(given, len(key), key, iv)
     print(plain.decode())
 
 if __name__ == "__main__":

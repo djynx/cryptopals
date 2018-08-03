@@ -3,8 +3,8 @@
 def pkcsPadding(inputBytes, blockSize):
     if len(inputBytes) == blockSize:
         return inputBytes
-    pad = blockSize - (len(inputBytes) % blockSize)
-    return (inputBytes  + bytes([pad]*pad))
+    pad = blockSize - len(inputBytes) % blockSize
+    return inputBytes  + bytes([pad]*pad)
 
 def pkcsUnpadding(inputBytes):
     for byte in inputBytes[-inputBytes[-1]:]:
