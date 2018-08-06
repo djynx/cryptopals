@@ -3,6 +3,7 @@ from base64 import b64decode
 from chall2 import xor
 from chall3 import singleCharXorBruteforce, score
 from chall5 import xorExtendedKey
+import timeit
 
 def hammingDistance(lhs, rhs):
 	dist = 0
@@ -37,14 +38,13 @@ def crackRepeatingXor(inputData, inputDistances):
 		plainCandidates.append((xorExtendedKey(inputData, key), key))
 	return max(plainCandidates, key=lambda k: score(k[0]) )
 
-
 def main():
+	start = timeit.default_timer()
 	with open("chall6.txt", "r") as f:
 		data = b64decode(f.read())
 	plain, key = crackRepeatingXor(data, findKeySize(data)[:5])
 	print("\x1b[6;30;42mCozulen metin:\x1b[0m\n"+plain.decode()+"\n\x1b[6;30;42mAnahtar:\x1b[0m\n"+key.decode())
+	stop = timeit.default_timer()
 
 if __name__ == "__main__":
 	main()
-
-

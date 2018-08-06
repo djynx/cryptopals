@@ -5,7 +5,7 @@ from chall9 import pkcsPadding,pkcsUnpadding
 
 def AES_ECB_Encrypt(plain,key):
     obj = AES.new(key)
-    return obj.encrypt(pkcsPadding(plain, len(key)))
+    return obj.encrypt(pkcsPadding(plain,len(key)))
 
 def AES_ECB_Decrypt(cipher,key):
     obj = AES.new(key)
