@@ -5,7 +5,7 @@ from chall9 import pkcsPadding,pkcsUnpadding
 
 def AES_ECB_Encrypt(plain,key):
     obj = AES.new(key)
-    return obj.encrypt(pkcsPadding(plain,len(key)))
+    return obj.encrypt(pkcsPadding(plain, len(key)))
 
 def AES_ECB_Decrypt(cipher,key):
     obj = AES.new(key)
@@ -14,7 +14,7 @@ def AES_ECB_Decrypt(cipher,key):
 def main():
     cipher = b64decode(open('chall7.txt','r').read())
     key = b'YELLOW SUBMARINE'
-    print(AES_ECB_Decrypt(cipher,key)[0].decode())
+    print(AES_ECB_Decrypt(cipher,key).decode())
 
 if __name__ == "__main__":
     main()

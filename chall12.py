@@ -39,7 +39,7 @@ def findNext(oracleObj, current, blockSize):
 
 def Byte_At_A_Time_ECB_Decryption_S(oracleObj):
     blockSize = findBlockSize(oracleObj)
-    if countDuplicateBlocks(oracleObj.encrypt(b'A'*32)) > 0:
+    if countDuplicateBlocks(oracleObj.encrypt(b'A'*64)) > 0:
         mode = "ECB"
     else:
         print("Mod CBC, islem gecersiz.")
@@ -47,7 +47,7 @@ def Byte_At_A_Time_ECB_Decryption_S(oracleObj):
     plain = b''
     for i in range(len(oracleObj.encrypt(b''))):
         plain += findNext(oracleObj, plain, blockSize)
-    return plain
+    return plain, blockSize
 
 
 def main():
@@ -55,7 +55,8 @@ def main():
                             "pciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IH"
 							"RvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK")
     ecbOracle = oracle(givenSuffix)
-    print(pkcsUnpadding(Byte_At_A_Time_ECB_Decryption_S(ecbOracle)).decode())
+    plain, bs = Byte_At_A_Time_ECB_Decryption_S(ecbOracle)
+    print(pkcsUnpadding(plain).decode())
 
 
 if __name__ == "__main__":

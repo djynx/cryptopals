@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from chall15 import isPkcsPadded
 
 def pkcsPadding(inputBytes, blockSize):
     if len(inputBytes) == blockSize:
@@ -7,10 +8,12 @@ def pkcsPadding(inputBytes, blockSize):
     return inputBytes  + bytes([pad]*pad)
 
 def pkcsUnpadding(inputBytes):
-    for byte in inputBytes[-inputBytes[-1]:]:
-        if byte != inputBytes[-1]:
-            return inputBytes
-    return inputBytes[:-inputBytes[len(inputBytes)-1]]
+    if len(inputBytes) == 0:
+        raise Exception("Girdi bos olamaz")
+    if not isPkcsPadded(inputBytes):
+        return inputBytes
+    padding = inputBytes[len(inputBytes) - 1]
+    return inputBytes[:-padding]
 
 def main():
     given = input("mesaj? ")

@@ -29,6 +29,7 @@ def AES_CBC_Decrypt(cipher,bs,key,iv):
             plain += xor(block, iv)
         else:
             plain += xor(block, cipher[(i-1)*bs:i*bs])
+    print(plain)
     return pkcsUnpadding(plain), iv
 
 def main():
